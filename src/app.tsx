@@ -55,7 +55,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
     rightContentRender: () => <RightContent />,
     disableContentMargin: false,
     waterMarkProps: {
-      content: initialState?.currentUser?.name,
+      content: "aaa",
     },
     footerRender: () => <Footer />,
     onPageChange: () => {
