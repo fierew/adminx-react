@@ -61,9 +61,11 @@ const GlobalHeaderRight: React.FC = () => {
         <QuestionCircleOutlined />
       </span>
       <Avatar />
-      {/* <span>
+      {/* {REACT_APP_ENV && (
+        <span>
           <Tag color={ENVTagColor[REACT_APP_ENV]}>{REACT_APP_ENV}</Tag>
-        </span> */}
+        </span>
+      )} */}
       <SelectLang className={styles.action} />
     </Space>
   );

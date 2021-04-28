@@ -15,5 +15,13 @@ export default [
       },
     ],
   },
-  { exact: true, path: '/', component: 'index', name: '首页', icon: 'dashboard' },
+  { exact: true,
+    path: '/',
+    component: 'index',
+    name: '首页',
+    icon: 'dashboard'
+  },
+  {
+    component: './404',
+  },
 ];

@@ -1,5 +1,5 @@
 import type { Settings as LayoutSettings } from '@ant-design/pro-layout';
-import { PageLoading, WaterMark } from '@ant-design/pro-layout';
+import { PageLoading } from '@ant-design/pro-layout';
 import { notification } from 'antd';
 import type { RequestConfig, RunTimeLayoutConfig } from 'umi';
 import { history, Link } from 'umi';
@@ -17,6 +17,9 @@ export const initialStateConfig = {
   loading: <PageLoading />,
 };
 
+/**
+ * @see  https://umijs.org/zh-CN/plugins/plugin-initial-state
+ * */
 export async function getInitialState(): Promise<{
   settings?: Partial<LayoutSettings>;
   currentUser?: API.CurrentUser;
@@ -46,6 +49,7 @@ export async function getInitialState(): Promise<{
   };
 }
 
+// https://umijs.org/zh-CN/plugins/plugin-layout
 export const layout: RunTimeLayoutConfig = ({ initialState }) => {
   return {
     rightContentRender: () => <RightContent />,
@@ -77,17 +81,6 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
     // 自定义 403 页面
     // unAccessible: <div>unAccessible</div>,
     ...initialState?.settings,
-    childrenRender: (children: React.ReactNode) => {
-      return (
-        <WaterMark
-          height={36}
-          width={115}
-          image="https://gw.alipayobjects.com/zos/bmw-prod/59a18171-ae17-4fc5-93a0-2645f64a3aca.svg"
-        >
-          {children}
-        </WaterMark>
-      );
-    },
   };
 };
 
