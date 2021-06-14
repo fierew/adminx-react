@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import {
   AlipayCircleOutlined,
   LockOutlined,
@@ -8,8 +7,20 @@ import {
   WeiboCircleOutlined,
 } from '@ant-design/icons';
 import { Alert, Space, message, Tabs } from 'antd';
-import ProForm, { ProFormCaptcha, ProFormCheckbox, ProFormText } from '@ant-design/pro-form';
-import { useIntl, Link, history, FormattedMessage, SelectLang, useModel } from 'umi';
+import React, { useState } from 'react';
+import ProForm, {
+  ProFormCaptcha,
+  ProFormCheckbox,
+  ProFormText,
+} from '@ant-design/pro-form';
+import {
+  useIntl,
+  Link,
+  history,
+  FormattedMessage,
+  SelectLang,
+  useModel,
+} from 'umi';
 import Footer from '@/components/Footer';
 import { login } from '@/services/ant-design-pro/api';
 import { getFakeCaptcha } from '@/services/ant-design-pro/login';
@@ -63,7 +74,11 @@ const Login: React.FC = () => {
       // 登录
       const msg = await login({ ...values, type });
       if (msg.status === 'ok') {
-        message.success('登录成功！');
+        const defaultloginSuccessMessage = intl.formatMessage({
+          id: 'pages.login.success',
+          defaultMessage: '登录成功！',
+        });
+        message.success(defaultloginSuccessMessage);
         await fetchUserInfo();
         goto();
         return;
@@ -71,7 +86,12 @@ const Login: React.FC = () => {
       // 如果失败去设置用户错误信息
       setUserLoginState(msg);
     } catch (error) {
-      message.error('登录失败，请重试！');
+      const defaultloginFailureMessage = intl.formatMessage({
+        id: 'pages.login.failure',
+        defaultMessage: '登录失败，请重试！',
+      });
+
+      message.error(defaultloginFailureMessage);
     }
     setSubmitting(false);
   };
@@ -79,7 +99,9 @@ const Login: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.lang}>{SelectLang && <SelectLang />}</div>
+      <div className={styles.lang} data-lang>
+        {SelectLang && <SelectLang />}
+      </div>
       <div className={styles.content}>
         <div className={styles.top}>
           <div className={styles.header}>
@@ -88,7 +110,9 @@ const Login: React.FC = () => {
               <span className={styles.title}>Ant Design</span>
             </Link>
           </div>
-          <div className={styles.desc}>Ant Design 是西湖区最具影响力的 Web 设计规范</div>
+          <div className={styles.desc}>
+            {intl.formatMessage({ id: 'pages.layouts.userLayout.title' })}
+          </div>
         </div>
 
         <div className={styles.main}>
@@ -190,7 +214,9 @@ const Login: React.FC = () => {
               </>
             )}
 
-            {status === 'error' && loginType === 'mobile' && <LoginMessage content="验证码错误" />}
+            {status === 'error' && loginType === 'mobile' && (
+              <LoginMessage content="验证码错误" />
+            )}
             {type === 'mobile' && (
               <>
                 <ProFormText
@@ -278,19 +304,28 @@ const Login: React.FC = () => {
               }}
             >
               <ProFormCheckbox noStyle name="autoLogin">
-                <FormattedMessage id="pages.login.rememberMe" defaultMessage="自动登录" />
+                <FormattedMessage
+                  id="pages.login.rememberMe"
+                  defaultMessage="自动登录"
+                />
               </ProFormCheckbox>
               <a
                 style={{
                   float: 'right',
                 }}
               >
-                <FormattedMessage id="pages.login.forgotPassword" defaultMessage="忘记密码" />
+                <FormattedMessage
+                  id="pages.login.forgotPassword"
+                  defaultMessage="忘记密码"
+                />
               </a>
             </div>
           </ProForm>
           <Space className={styles.other}>
-            <FormattedMessage id="pages.login.loginWith" defaultMessage="其他登录方式" />
+            <FormattedMessage
+              id="pages.login.loginWith"
+              defaultMessage="其他登录方式"
+            />
             <AlipayCircleOutlined className={styles.icon} />
             <TaobaoCircleOutlined className={styles.icon} />
             <WeiboCircleOutlined className={styles.icon} />
@@ -300,6 +335,6 @@ const Login: React.FC = () => {
       <Footer />
     </div>
   );
-}
+};
 
 export default Login;
