@@ -5,7 +5,7 @@ import type { RequestConfig, RunTimeLayoutConfig } from 'umi';
 import { history, Link } from 'umi';
 import RightContent from '@/components/RightContent';
 import Footer from '@/components/Footer';
-import type { ResponseError } from 'umi-request';
+import type { ResponseError, RequestOptionsInit } from 'umi-request';
 import { currentUser as queryCurrentUser } from './services/ant-design-pro/api';
 import { BookOutlined, LinkOutlined } from '@ant-design/icons';
 
@@ -123,7 +123,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
  * @see https://beta-pro.ant.design/docs/request-cn
  */
 export const request: RequestConfig = {
-  errorHandler: (error: any) => {
+  errorHandler: (error: ResponseError) => {
     const { response } = error;
 
     if (!response) {
@@ -134,4 +134,14 @@ export const request: RequestConfig = {
     }
     throw error;
   },
+  requestInterceptors: [
+    // 阻拦器，设置token
+    (url: string, options: RequestOptionsInit) => {
+      console.log(111);
+      return {
+        url,
+        options,
+      };
+    },
+  ],
 };
