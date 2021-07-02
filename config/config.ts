@@ -9,6 +9,8 @@ export default defineConfig({
   },
   routes,
   fastRefresh: {},
+  mfsu: {},
+  webpack5: {},
   dynamicImport: {
     loading: '@ant-design/pro-layout/es/PageLoading',
   },
