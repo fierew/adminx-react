@@ -1,4 +1,4 @@
-export default [
+﻿export default [
   {
     path: '/user',
     layout: false,
@@ -16,11 +16,31 @@ export default [
     ],
   },
   {
-    exact: true,
-    path: '/',
-    component: 'index',
-    name: '首页',
-    icon: 'dashboard',
+    path: '/welcome',
+    name: 'welcome',
+    icon: 'smile',
+    component: './Welcome',
+  },
+  {
+    path: '/admin',
+    name: 'admin',
+    icon: 'crown',
+    access: 'canAdmin',
+    component: './Admin',
+    routes: [
+      {
+        path: '/admin/sub-page',
+        name: 'sub-page',
+        icon: 'smile',
+        component: './Welcome',
+      },
+    ],
+  },
+  {
+    name: 'list.table-list',
+    icon: 'table',
+    path: '/list',
+    component: './TableList',
   },
   {
     path: '/system',
@@ -49,6 +69,10 @@ export default [
         component: './system/Dept',
       },
     ],
+  },
+  {
+    path: '/',
+    redirect: '/welcome',
   },
   {
     component: './404',
